@@ -59,10 +59,7 @@ DummyJSON for providing mock data.
 
 Framer Motion for animations.
 
+#                                    thank You. 
+
+
  
-
-
-
-
-<!-- 
- Welcome to MyApp, a modern and user-friendly web application built with React.js, Vite, and Tailwind CSS. This project features a responsive Contact Us Form and a Blog Listing Page with filtering and pagination capabilities. It is designed to cater to a diverse audience, including students, career changers, coaches, and organizations. -->
