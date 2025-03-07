@@ -9,6 +9,7 @@ const Filters = ({ onFilter }) => {
     onFilter({ tags, search });
   };
 
+  
   return (
     <form
       onSubmit={handleSubmit}
