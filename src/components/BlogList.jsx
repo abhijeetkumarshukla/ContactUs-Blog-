@@ -7,7 +7,7 @@ const BlogList = () => {
   const [filteredBlogs, setFilteredBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const [blogsPerPage] = useState(6); // Number of blogs per page
+  const [blogsPerPage] = useState(6);
 
   useEffect(() => {
     fetch("https://dummyjson.com/posts")
@@ -19,11 +19,14 @@ const BlogList = () => {
       });
   }, []);
 
-  // Handle filtering
   const handleFilter = (filters) => {
     let filtered = blogs;
-    if (filters.category) {
-      filtered = filtered.filter((blog) => blog.tags.includes(filters.category));
+    if (filters.tags) {
+      filtered = filtered.filter((blog) =>
+        blog.tags.some((tag) =>
+          tag.toLowerCase().includes(filters.tags.toLowerCase())
+        )
+      );
     }
     if (filters.search) {
       filtered = filtered.filter((blog) =>
@@ -31,7 +34,7 @@ const BlogList = () => {
       );
     }
     setFilteredBlogs(filtered);
-    setCurrentPage(1); // Reset to the first page after filtering
+    setCurrentPage(1);
   };
 
   // Pagination logic
@@ -57,19 +60,22 @@ const BlogList = () => {
           </div>
           {/* Pagination Controls */}
           <div className="flex justify-center mt-8 space-x-2">
-            {Array.from({ length: Math.ceil(filteredBlogs.length / blogsPerPage) }, (_, i) => (
-              <button
-                key={i + 1}
-                onClick={() => paginate(i + 1)}
-                className={`px-4 py-2 rounded ${
-                  currentPage === i + 1
-                    ? "bg-blue-600 text-white"
-                    : "bg-gray-200 hover:bg-gray-300"
-                }`}
-              >
-                {i + 1}
-              </button>
-            ))}
+            {Array.from(
+              { length: Math.ceil(filteredBlogs.length / blogsPerPage) },
+              (_, i) => (
+                <button
+                  key={i + 1}
+                  onClick={() => paginate(i + 1)}
+                  className={`px-4 py-2 rounded ${
+                    currentPage === i + 1
+                      ? "bg-blue-600 text-white"
+                      : "bg-gray-200 hover:bg-gray-300"
+                  }`}
+                >
+                  {i + 1}
+                </button>
+              )
+            )}
           </div>
         </>
       )}
